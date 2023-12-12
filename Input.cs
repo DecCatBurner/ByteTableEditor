@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic; 
 using System.Runtime.InteropServices;
 using Output.go;
+using EditFunctions;
 
 public class ArrayInput
 {
@@ -26,19 +27,19 @@ public class ArrayInput
     public static void Main(string[] args)
     {
         byte[] data = new byte[5];
-        string[] harray;
+        string[] inputs;
         start:
         for (int j = 0; j < data.Length; j++)
         {
             Console.WriteLine($"{j}|{data[j]}");
         }
-        harray = ReadArray(Console.ReadLine());
-        if (harray[0] == "Console")
+        inputs = ReadArray(Console.ReadLine());
+        if (inputs[0] == "Console")
         {
-            switch (harray.Length)
+            switch (inputs.Length)
             {
                 case 2:
-                    switch (harray[1])
+                    switch (inputs[1])
                     {
                         case "?":
                             Console.WriteLine("____Operations____");
@@ -50,17 +51,13 @@ public class ArrayInput
                     }
                     break;
                 case 4:
-                    switch (harray[1])
+                    int i;
+                    switch (inputs[1])
                     {
                         case "SET":
-                            int I;
-                            byte O;
-                            if (int.TryParse(harray[2], out I))
+                            if (!EditFunctions.StringToInt(inputs[2], out i))
                             {
-                                if (byte.TryParse(harray[3], out O))
-                                {
-                                    data[I] = O;
-                                }
+                                EditFunctions.SET(inputs[3], data[i]);
                             }
                             break;
                     }
